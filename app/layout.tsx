@@ -31,7 +31,7 @@ export default function RootLayout({
         </header>
         <main className="container mx-auto p-4">{children}</main>
         <footer className="bg-red-700 text-white p-4 text-center">
-          <p>© 2023 मराठी जनतेचे कलियुग चक्र. सर्व हक्क राखीव.</p>
+          <p translate="no">© 2023 मराठी जनतेचे कलियुग चक्र. All Rights Reserved.</p>
         </footer>
       </body>
     </html>
