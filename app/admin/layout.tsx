@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { AppBar, Box, CssBaseline, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
+import { Box, CssBaseline, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import ArticleIcon from '@mui/icons-material/Article';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import { ThemeProvider, createTheme } from '@mui/material/styles'
@@ -25,13 +25,13 @@ export default function AdminLayout({
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-          {/* <Toolbar>
+        {/* <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+          <Toolbar>
             <Typography variant="h6" noWrap component="div" translate='no'>
               मराठी जनतेचे कलियुग चक्र Admin
             </Typography>
-          </Toolbar> */}
-        </AppBar>
+          </Toolbar>
+        </AppBar> */}
         <Drawer
           variant="permanent"
           sx={{
