@@ -13,13 +13,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="mr">
-      <body className="bg-gray-100 ">
+      <head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9213969545809441"
+     crossOrigin="anonymous"></script></head>
+      <body className="bg-gray-100 w-full overflow-x-hidden">
         <header className="text-red-600 bg-white p-4 shadow-red-600 shadow-sm w-full ">
           <h5 className="text-sm font-bold text-center" translate="no">
             मराठी जनतेचे
           </h5>
           <h1
-            className="sm:text-9xl font-bold text-center text-xl shadow-black "
+ className="text-6xl md:text-9xl font-bold text-center shadow-black"
             style={{
               textShadow:
                 "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
@@ -29,7 +31,7 @@ export default function RootLayout({
             कलियुग चक्र
           </h1>
         </header>
-        <main className=" w-full p-4">{children}</main>
+        <main className=" w-full p-1  max-w-screen overflow-x-hidden">{children}</main>
         <footer className="bg-red-700 text-white p-4 text-center">
           <p translate="no">© 2024 मराठी जनतेचे कलियुग चक्र. All Rights Reserved.</p>
         </footer>

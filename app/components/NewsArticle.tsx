@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
-import { Typography, Box, Paper, IconButton } from '@mui/material';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import YouTube from 'react-youtube';
 
-interface Video {
-  id: string;
-  title: string;
-  videoUrl?: string; // Optional for articles
-  thumbnailUrl?: string; // Optional for articles
-}
+
 
 interface Article {
   id: string;
   title: string;
-  content?: string; // Optional for videos
-  imageUrl?: string; // Optional for videos
+  content: string;
+  imageUrl: string;
+  date: string;
+  videoUrl: string;
+  thumbnailUrl?: string;// Optional for articles
+  // New property for video URL
 }
 
-type Media = Video & Article;
+type Media = Article;
 
 const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -44,74 +40,71 @@ const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
   };
 
   return (
-    <Paper elevation={3} sx={{ maxWidth: 600, mx: 'auto', my: 2, p: 3 }}>
-      <Typography variant="h5" component="h2" gutterBottom>
-        {media.title}
-      </Typography>
+    <div className="mb-4 p-6 bg-white shadow-md rounded-md">
+      <h1 className='text-lg font-semibold '>{media.date}</h1>
+      <h2 className="text-2xl font-semibold mb-4">{media.title}</h2>
 
-      <Box sx={{ position: 'relative', width: '100%', height: 300, mb: 2 }}>
+      <div className="relative w-full mb-4">
         {media.videoUrl && media.thumbnailUrl ? (
           !isPlaying ? (
             <>
-              <Image
+              <img
                 src={media.thumbnailUrl}
                 alt={media.title}
-                layout="fill"
-                objectFit="cover"
-                style={{ borderRadius: '4px' }}
+                className="w-full h-full object-cover rounded-md"
               />
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                }}
-              >
-                <IconButton
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                <button
                   onClick={handlePlay}
-                  sx={{
-                    color: 'white',
-                    '&:hover': {
-                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                    },
-                  }}
+                  className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2"
                 >
-                  <PlayCircleOutlineIcon sx={{ fontSize: 64 }} />
-                </IconButton>
-              </Box>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-16 w-16"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14.752 11.168l-3.197-1.932A2 2 0 008.5 11.84v4.32a2 2 0 003.055 1.68l3.197-1.932a2 2 0 000-3.36z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6.253v.01M12 17.747v.01"
+                    />
+                  </svg>
+                </button>
+              </div>
             </>
           ) : videoId ? (
             <YouTube videoId={videoId} opts={opts} />
           ) : (
-            <Typography color="error">Invalid YouTube URL</Typography>
+            <p className="text-red-500">Invalid YouTube URL</p>
           )
         ) : media.imageUrl ? (
-          <Image
+          <img
             src={media.imageUrl}
             alt={media.title}
-            layout="fill"
-            objectFit="cover"
-            style={{ borderRadius: '4px' }}
+            className="w-full h-full object-cover rounded-md"
           />
         ) : null}
-      </Box>
+      </div>
 
       {media.content && (
-        <Typography variant="body1">{media.content}</Typography>
+        <p className="text-gray-700 text-base mb-4">{media.content}</p>
       )}
 
       {!isPlaying && media.videoUrl && (
-        <Typography variant="body2" color="text.secondary">
+        <p className="text-sm text-gray-500">
           Click the play button to watch the video
-        </Typography>
+        </p>
       )}
-    </Paper>
+    </div>
   );
 };
 
