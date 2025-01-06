@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 
-
-
 interface Article {
+  additionalContent?: React.JSX.Element;
   id: string;
   title: string;
   content: string;
   imageUrl: string;
-  date: string;
+  date: string; // Format: "YYYY-MM-DD"
   videoUrl: string;
-  thumbnailUrl?: string;// Optional for articles
-  // New property for video URL
+  thumbnailUrl?: string; // Optional for articles
 }
 
 type Media = Article;
 
 const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(media.thumbnailUrl || null);
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -28,6 +27,27 @@ const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
     const matches = url.match(regex);
     return matches ? matches[1] : null;
   };
+
+  const formatDate = (dateString: string): { formattedDate: string; day: string } => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'short', year: 'numeric' };
+    const dayOptions: Intl.DateTimeFormatOptions = { weekday: 'long' };
+    return {
+      formattedDate: date.toLocaleDateString('en-US', options),
+      day: date.toLocaleDateString('en-US', dayOptions),
+    };
+  };
+
+  const { formattedDate, day } = formatDate(media.date);
+
+  useEffect(() => {
+    if (!thumbnailUrl && media.videoUrl) {
+      const videoId = getYouTubeID(media.videoUrl);
+      if (videoId) {
+        setThumbnailUrl(`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`);
+      }
+    }
+  }, [media.videoUrl, thumbnailUrl]);
 
   const videoId = media.videoUrl ? getYouTubeID(media.videoUrl) : null;
 
@@ -40,16 +60,39 @@ const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
   };
 
   return (
-    <div className="mb-4 p-6 bg-white shadow-md rounded-md">
-      <h1 className='text-lg font-semibold '>{media.date}</h1>
+    <div className="mb-4 p-6 bg-white shadow-md rounded-md relative">
+      {/* Date and Day */}
+      <div className="flex justify-between mb-4">
+        <span className="text-gray-500 text-sm">{formattedDate}</span>
+        <span className="text-gray-500 text-sm capitalize">{day}</span>
+      </div>
+
+      {/* Title */}
       <h2 className="text-2xl font-semibold mb-4">{media.title}</h2>
 
+      {/* Image */}
+      {media.imageUrl && (
+        <div className="mb-4">
+          <img
+            src={media.imageUrl}
+            alt={media.title}
+            className="w-full h-full object-cover rounded-md"
+          />
+        </div>
+      )}
+
+      {/* Content */}
+      {media.content && (
+        <p className="text-gray-700 text-base mb-4">{media.content}</p>
+      )}
+
+      {/* Video */}
       <div className="relative w-full mb-4">
-        {media.videoUrl && media.thumbnailUrl ? (
+        {media.videoUrl && thumbnailUrl ? (
           !isPlaying ? (
             <>
               <img
-                src={media.thumbnailUrl}
+                src={thumbnailUrl}
                 alt={media.title}
                 className="w-full h-full object-cover rounded-md"
               />
@@ -61,22 +104,10 @@ const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-16 w-16"
-                    fill="none"
+                    fill="currentColor"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14.752 11.168l-3.197-1.932A2 2 0 008.5 11.84v4.32a2 2 0 003.055 1.68l3.197-1.932a2 2 0 000-3.36z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6.253v.01M12 17.747v.01"
-                    />
+                    <path d="M8 5v14l11-7z" />
                   </svg>
                 </button>
               </div>
@@ -86,23 +117,12 @@ const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
           ) : (
             <p className="text-red-500">Invalid YouTube URL</p>
           )
-        ) : media.imageUrl ? (
-          <img
-            src={media.imageUrl}
-            alt={media.title}
-            className="w-full h-full object-cover rounded-md"
-          />
         ) : null}
       </div>
 
-      {media.content && (
-        <p className="text-gray-700 text-base mb-4">{media.content}</p>
-      )}
-
-      {!isPlaying && media.videoUrl && (
-        <p className="text-sm text-gray-500">
-          Click the play button to watch the video
-        </p>
+      {/* Additional Content */}
+      {media.additionalContent && (
+        <div className="text-gray-700 text-base">{media.additionalContent}</div>
       )}
     </div>
   );

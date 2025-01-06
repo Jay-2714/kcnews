@@ -1,4 +1,5 @@
 import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 import "./globals.css";
 import type { Metadata } from "next";
 
@@ -36,7 +37,9 @@ export default function RootLayout({
           >
             कलियुग चक्र
           </h1>
+          
         </header>
+        <Navbar/>
         <main className=" w-full p-1  max-w-screen overflow-x-hidden">{children}</main>
         <Footer/>
       </body>
