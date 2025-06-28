@@ -1,36 +1,190 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# मराठी जनतेचे कलियुग चक्र (KC News)
 
-## Getting Started
+A modern Marathi news website built with Next.js, TypeScript, and Firebase.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 🏠 Homepage
+- Dynamic news articles fetched from Firebase Firestore
+- Latest news vs older news toggle functionality
+- Responsive three-column layout with sidebar ads
+- YouTube video integration with custom player
+- Optimized images using Next.js Image component
+
+### 📱 Navigation
+- Responsive navbar with hover effects
+- Four main sections: Home, Awards, About, Contact
+- Smooth page transitions using Next.js Link
+
+### 🏆 Awards Page
+- Showcase of achievements and recognitions
+- Statistics and milestones
+- Recognition highlights
+- Future vision section
+
+### ℹ️ About Page
+- Mission and vision
+- Website features overview
+- Team goals and objectives
+- Cultural preservation focus
+
+### 📞 Contact Page
+- Contact form with validation
+- Social media links
+- Contact information
+- Additional service information
+
+### 🎨 Design Features
+- Custom Marathi fonts (Khand, Laila)
+- Red and yellow color scheme
+- Responsive design for all devices
+- Smooth animations with Framer Motion
+- Material-UI components integration
+
+## Tech Stack
+
+- **Framework**: Next.js 14.2.14
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Firebase Firestore
+- **Icons**: React Icons, Tabler Icons, Lucide React
+- **Animations**: Framer Motion
+- **Video**: React YouTube
+- **UI Components**: Material-UI
+
+## Installation and Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd kcnews
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Firebase Configuration**
+   - The Firebase configuration is already set up in `firebase-config.js`
+   - Database: `kaliyug-chakra` Firestore project
+   - Collection: `articles`
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Build for production**
+   ```bash
+   npm run build
+   npm start
+   ```
+
+## Project Structure
+
+```
+kcnews/
+├── app/
+│   ├── about/
+│   │   └── page.tsx          # About page
+│   ├── awards/
+│   │   └── page.tsx          # Awards page  
+│   ├── contact/
+│   │   └── page.tsx          # Contact page
+│   ├── fonts/                # Custom fonts
+│   ├── favicon.ico
+│   ├── globals.css           # Global styles
+│   ├── layout.tsx            # Root layout
+│   └── page.tsx              # Homepage
+├── components/
+│   ├── ui/
+│   │   └── floating-dock.tsx # Floating dock component
+│   ├── footer.tsx            # Footer component
+│   ├── navbar.tsx            # Navigation bar
+│   ├── NewsArticle.tsx       # News article component
+│   ├── sidebar.tsx           # Sidebar component
+│   └── VideoPlayer.tsx       # Video player component
+├── lib/
+│   └── utils.ts              # Utility functions
+├── firebase-config.js        # Firebase configuration
+├── next.config.mjs           # Next.js configuration
+├── package.json              # Dependencies
+├── tailwind.config.ts        # Tailwind CSS config
+└── tsconfig.json             # TypeScript config
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Firebase Data Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application expects articles in Firestore with the following structure:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```javascript
+{
+  id: string,
+  title: string,
+  content: string,
+  imageUrl: string,
+  date: string, // Format: "YYYY-MM-DD"
+  videoUrl: string, // YouTube URL
+  thumbnailUrl?: string, // Optional
+  createdAt: Timestamp // For sorting
+}
+```
 
-## Learn More
+## Features Completed
 
-To learn more about Next.js, take a look at the following resources:
+✅ **Homepage with News Feed**
+- Dynamic article loading from Firebase
+- Latest/Older news toggle
+- Responsive layout with ads
+- YouTube video integration
+- Image optimization
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+✅ **Navigation System**
+- Functional navbar with proper routing
+- All page links working
+- Smooth transitions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+✅ **About Page**
+- Mission and vision
+- Features overview
+- Goals and objectives
 
-## Deploy on Vercel
+✅ **Awards Page**
+- Achievement showcase
+- Statistics display
+- Recognition highlights
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✅ **Contact Page**
+- Contact form with validation
+- Contact information
+- Social media links
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+✅ **Technical Optimizations**
+- ESLint errors resolved
+- Next.js Image optimization
+- Build warnings minimized
+- Remote image patterns configured
+- TypeScript type safety
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+
+## Browser Support
+
+The application supports all modern browsers and is fully responsive for:
+- Desktop computers
+- Tablets
+- Mobile phones
+
+## Contributing
+
+This project follows standard Git workflows. Please ensure all builds pass before submitting changes.
+
+## License
+
+© 2024 मराठी जनतेचे कलियुग चक्र. All Rights Reserved.

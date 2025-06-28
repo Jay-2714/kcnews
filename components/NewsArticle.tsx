@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
+import Image from 'next/image';
 
 interface Article {
   additionalContent?: React.JSX.Element;
@@ -73,10 +74,13 @@ const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
       {/* Image */}
       {media.imageUrl && (
         <div className="mb-4">
-          <img
+          <Image
             src={media.imageUrl}
             alt={media.title}
-            className="w-full h-full object-cover rounded-md"
+            width={800}
+            height={400}
+            className="w-full h-auto object-cover rounded-md"
+            priority
           />
         </div>
       )}
@@ -91,10 +95,12 @@ const MediaCard: React.FC<{ media: Media }> = ({ media }) => {
         {media.videoUrl && thumbnailUrl ? (
           !isPlaying ? (
             <>
-              <img
+              <Image
                 src={thumbnailUrl}
                 alt={media.title}
-                className="w-full h-full object-cover rounded-md"
+                width={800}
+                height={450}
+                className="w-full h-auto object-cover rounded-md"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
                 <button
